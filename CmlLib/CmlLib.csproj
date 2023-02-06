@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.1</TargetFrameworks>
-        <LangVersion>8.0</LangVersion>
-        <Nullable>enable</Nullable>
+		<TargetFramework>net7.0-windows10.0.22000.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
         <Version>3.3.6</Version>
         <Description>Minecraft Launcher Library for .NET
 Support all version, forge, optifine
