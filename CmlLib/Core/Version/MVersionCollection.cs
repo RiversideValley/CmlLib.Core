@@ -1,10 +1,6 @@
-﻿using System;
+﻿using CmlLib.Core.VersionMetadata;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.IO;
-using System.Threading.Tasks;
-using CmlLib.Core.VersionMetadata;
 
 namespace CmlLib.Core.Version
 {
@@ -46,14 +42,14 @@ namespace CmlLib.Core.Version
         public MVersionMetadata? LatestSnapshotVersion { get; private set; }
         public MinecraftPath? MinecraftPath { get; private set; }
         protected OrderedDictionary Versions;
-        
+
         public MVersionMetadata this[int index] => (MVersionMetadata)Versions[index]!;
 
         public MVersionMetadata GetVersionMetadata(string name)
         {
             if (name == null)
                 throw new ArgumentNullException(nameof(name));
-            
+
             // Versions[name] will return null if index does not exists
             // Casting from null to MVersionMetadata does not throw NullReferenceException
             MVersionMetadata? versionMetadata = (MVersionMetadata?)Versions[name];
@@ -68,7 +64,7 @@ namespace CmlLib.Core.Version
             var sorter = new MVersionMetadataSorter(option);
             return sorter.Sort(this);
         }
-        
+
         public virtual MVersion GetVersion(string name)
         {
             if (name == null)
@@ -86,7 +82,7 @@ namespace CmlLib.Core.Version
             var versionMetadata = GetVersionMetadata(name);
             return GetVersionAsync(versionMetadata);
         }
-        
+
         public virtual MVersion GetVersion(MVersionMetadata versionMetadata)
         {
             if (versionMetadata == null)
@@ -134,7 +130,7 @@ namespace CmlLib.Core.Version
                     .ConfigureAwait(false);
                 startVersion.InheritFrom(baseVersion);
             }
-            
+
             return startVersion;
         }
 
@@ -168,14 +164,14 @@ namespace CmlLib.Core.Version
                 }
             }
 
-            if (this.MinecraftPath == null && from.MinecraftPath != null)
-                this.MinecraftPath = from.MinecraftPath;
+            if (MinecraftPath == null && from.MinecraftPath != null)
+                MinecraftPath = from.MinecraftPath;
 
-            if (this.LatestReleaseVersion == null && from.LatestReleaseVersion != null)
-                this.LatestReleaseVersion = from.LatestReleaseVersion;
+            if (LatestReleaseVersion == null && from.LatestReleaseVersion != null)
+                LatestReleaseVersion = from.LatestReleaseVersion;
 
-            if (this.LatestSnapshotVersion == null && from.LatestSnapshotVersion != null)
-                this.LatestSnapshotVersion = from.LatestSnapshotVersion;
+            if (LatestSnapshotVersion == null && from.LatestSnapshotVersion != null)
+                LatestSnapshotVersion = from.LatestSnapshotVersion;
         }
 
         public IEnumerator<MVersionMetadata> GetEnumerator()
@@ -186,7 +182,7 @@ namespace CmlLib.Core.Version
                     continue;
 
                 var entry = item.Value;
-                
+
                 var version = (MVersionMetadata)entry.Value!;
                 yield return version;
             }

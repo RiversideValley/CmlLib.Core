@@ -1,6 +1,5 @@
 ﻿using CmlLib.Core.Auth;
 using CmlLib.Core.Version;
-using System;
 
 namespace CmlLib.Core
 {

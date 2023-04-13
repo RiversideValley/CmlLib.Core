@@ -1,6 +1,5 @@
 ﻿using CmlLib.Core.Version;
 using CmlLib.Utils;
-using System.IO;
 
 namespace CmlLib.Core
 {
@@ -22,7 +21,7 @@ namespace CmlLib.Core
             Directory.CreateDirectory(path);
 
             if (version.Libraries == null) return path;
-            
+
             foreach (var item in version.Libraries)
             {
                 // do not ignore exception

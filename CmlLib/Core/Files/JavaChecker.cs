@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Threading.Tasks;
-using CmlLib.Core.Downloader;
+﻿using CmlLib.Core.Downloader;
 using CmlLib.Core.Installer;
 using CmlLib.Core.Java;
 using CmlLib.Core.Version;
 using CmlLib.Utils;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
+using System.Net;
 
 namespace CmlLib.Core.Files
 {
@@ -23,7 +19,7 @@ namespace CmlLib.Core.Files
         {
             if (!string.IsNullOrEmpty(version.JavaBinaryPath) && File.Exists(version.JavaBinaryPath))
                 return null;
-            
+
             var javaVersion = version.JavaVersion;
             if (string.IsNullOrEmpty(javaVersion))
                 javaVersion = MinecraftJavaPathResolver.JreLegacyVersionName;
@@ -55,7 +51,7 @@ namespace CmlLib.Core.Files
                 {
                     // Net, JsonParse
                     var javaManifest = getJavaVersionManifest(javaVersions, javaVersion);
-                    
+
                     if (javaManifest == null && javaVersion != MinecraftJavaPathResolver.JreLegacyVersionName)
                         javaManifest = getJavaVersionManifest(javaVersions, MinecraftJavaPathResolver.JreLegacyVersionName);
                     if (javaManifest == null)
@@ -84,7 +80,7 @@ namespace CmlLib.Core.Files
         private string getJavaOSName()
         {
             string osName = "";
-            
+
             if (MRule.OSName == MRule.Windows)
             {
                 if (MRule.Arch == "64")
@@ -106,11 +102,11 @@ namespace CmlLib.Core.Files
 
             return osName;
         }
-        
+
         private JObject? getJavaVersionsForOs(string osName)
         {
             string response;
-            
+
             using (var wc = new WebClient())
             {
                 response = wc.DownloadString(JavaManifestServer); // ex
@@ -125,7 +121,7 @@ namespace CmlLib.Core.Files
             var versionArr = job[version] as JArray;
             if (versionArr == null || versionArr.Count == 0)
                 return null;
-            
+
             var manifestUrl = versionArr[0]["manifest"]?["url"]?.ToString();
             if (string.IsNullOrEmpty(manifestUrl))
                 return null;
@@ -154,9 +150,9 @@ namespace CmlLib.Core.Files
                 {
                     var filePath = Path.Combine(path, name);
                     filePath = IOUtil.NormalizePath(filePath);
-                    
+
                     bool.TryParse(value?["executable"]?.ToString(), out bool executable);
-                    
+
                     var file = checkJavaFile(value, filePath);
                     if (file != null)
                     {
@@ -174,7 +170,7 @@ namespace CmlLib.Core.Files
                     if (type != "directory")
                         Debug.WriteLine(type);
                 }
-                
+
                 progressed++;
                 progress?.Report(new DownloadFileChangedEventArgs(
                     MFile.Runtime, this, name, manifest.Count, progressed));
@@ -187,18 +183,18 @@ namespace CmlLib.Core.Files
             var downloadObj = value?["downloads"]?["raw"];
             if (downloadObj == null)
                 return null;
-                    
+
             var url = downloadObj["url"]?.ToString();
             if (string.IsNullOrEmpty(url))
                 return null;
-                    
+
             var hash = downloadObj["sha1"]?.ToString();
             var sizeStr = downloadObj["size"]?.ToString();
             long.TryParse(sizeStr, out long size);
 
             if (IOUtil.CheckFileValidation(filePath, hash, CheckHash))
                 return null;
-            
+
             return new DownloadFile(filePath, url)
             {
                 Size = size
@@ -209,19 +205,19 @@ namespace CmlLib.Core.Files
         {
             var javaPathResolver = new MinecraftJavaPathResolver(path);
             string legacyJavaPath = javaPathResolver.GetJavaDirPath(MinecraftJavaPathResolver.CmlLegacyVersionName);
-            
+
             MJava mJava = new MJava(legacyJavaPath);
             binPath = mJava.GetBinaryPath();
-            
+
             try
             {
                 if (mJava.CheckJavaExistence())
-                    return new DownloadFile[] {};
+                    return new DownloadFile[] { };
 
-                string javaUrl = mJava.GetJavaUrl(); 
+                string javaUrl = mJava.GetJavaUrl();
                 string lzmaPath = Path.Combine(Path.GetTempPath(), "jre.lzma");
                 string zipPath = Path.Combine(Path.GetTempPath(), "jre.zip");
-                            
+
                 DownloadFile file = new DownloadFile(lzmaPath, javaUrl)
                 {
                     Name = "jre.lzma",
@@ -240,12 +236,12 @@ namespace CmlLib.Core.Files
                     }
                 };
 
-                return new[] {file};
+                return new[] { file };
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                return new DownloadFile[] {};
+                return new DownloadFile[] { };
             }
         }
 

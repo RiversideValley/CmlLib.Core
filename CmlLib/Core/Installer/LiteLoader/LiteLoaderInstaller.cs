@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CmlLib.Core.Version;
+﻿using CmlLib.Core.Version;
 using CmlLib.Core.VersionLoader;
 using CmlLib.Core.VersionMetadata;
 
@@ -12,7 +9,7 @@ namespace CmlLib.Core.Installer.LiteLoader
     {
         public LiteLoaderInstaller(MinecraftPath path)
         {
-            this.minecraftPath = path;
+            minecraftPath = path;
         }
 
         private readonly MinecraftPath minecraftPath;
@@ -42,7 +39,7 @@ namespace CmlLib.Core.Installer.LiteLoader
             var localVersionLoader = new LocalVersionLoader(minecraftPath);
             var localVersions = await localVersionLoader.GetVersionMetadatasAsync()
                 .ConfigureAwait(false);
-            
+
             liteLoaderVersions = await localVersionLoader.GetVersionMetadatasAsync()
                 .ConfigureAwait(false);
 
@@ -59,7 +56,7 @@ namespace CmlLib.Core.Installer.LiteLoader
 
             return liteLoader.Install(minecraftPath, vanillaVersion);
         }
-        
+
         public Task<string> Install(string liteLoaderVersion, MVersionMetadata target)
         {
             return Install(liteLoaderVersion, target.GetVersion());

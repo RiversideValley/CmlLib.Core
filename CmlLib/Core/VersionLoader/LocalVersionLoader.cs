@@ -1,7 +1,4 @@
 ﻿using CmlLib.Core.Version;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using CmlLib.Core.VersionMetadata;
 
 namespace CmlLib.Core.VersionLoader
@@ -31,7 +28,7 @@ namespace CmlLib.Core.VersionLoader
             var versionDirectory = new DirectoryInfo(path.Versions);
             if (!versionDirectory.Exists)
                 return new List<MVersionMetadata>();
-            
+
             var dirs = versionDirectory.GetDirectories();
             var arr = new List<MVersionMetadata>(dirs.Length);
 

@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
 using System.Net;
 
 namespace CmlLib.Core.Mojang
@@ -26,7 +25,7 @@ namespace CmlLib.Core.Mojang
                 var property = item?.First as JProperty;
                 if (property == null)
                     continue;
-                
+
                 ServerStatusColor color = toStatusColor(property.Value.ToString());
                 dict.Add(property.Name, color);
             }

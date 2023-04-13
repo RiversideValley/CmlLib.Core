@@ -1,5 +1,4 @@
 ﻿using CmlLib.Core.Version;
-using System.Threading.Tasks;
 
 namespace CmlLib.Core.VersionLoader
 {

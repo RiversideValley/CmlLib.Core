@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace CmlLib.Utils
+﻿namespace CmlLib.Utils
 {
     internal static class SevenZipWrapper
     {
@@ -17,14 +14,14 @@ namespace CmlLib.Utils
 
             if (readCount < 5)
                 return;
-            
+
             // Read in the decompress file size.
             byte[] fileLengthBytes = new byte[8];
             readCount = input.Read(fileLengthBytes, 0, 8);
 
             if (readCount < 8)
                 return;
-            
+
             long fileLength = BitConverter.ToInt64(fileLengthBytes, 0);
 
             coder.SetDecoderProperties(properties);

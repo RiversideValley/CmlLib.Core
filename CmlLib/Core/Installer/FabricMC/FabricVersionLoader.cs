@@ -1,10 +1,8 @@
 ﻿using CmlLib.Core.Version;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
 using CmlLib.Core.VersionLoader;
 using CmlLib.Core.VersionMetadata;
+using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace CmlLib.Core.Installer.FabricMC
 {
@@ -12,7 +10,7 @@ namespace CmlLib.Core.Installer.FabricMC
     {
         public static readonly string ApiServer = "https://meta.fabricmc.net";
         private static readonly string LoaderUrl = ApiServer + "/v2/versions/loader";
-        
+
         public string? LoaderVersion { get; set; }
 
         protected string GetVersionName(string version, string loaderVersion)
@@ -35,10 +33,10 @@ namespace CmlLib.Core.Installer.FabricMC
                     loaders = GetFabricLoaders();
                 else
                     loaders = await GetFabricLoadersAsync().ConfigureAwait(false);
-                
+
                 if (loaders.Length == 0 || string.IsNullOrEmpty(loaders[0].Version))
                     throw new KeyNotFoundException("can't find loaders");
-                
+
                 LoaderVersion = loaders[0].Version;
             }
 

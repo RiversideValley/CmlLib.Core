@@ -1,9 +1,6 @@
 ﻿using CmlLib.Core.Downloader;
-using System;
 using System.ComponentModel;
-using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace CmlLib.Utils
 {
@@ -20,22 +17,22 @@ namespace CmlLib.Utils
                 WebRequest? w = base.GetWebRequest(uri);
                 if (w == null)
                     return null;
-                
+
                 w.Timeout = DefaultWebRequestTimeout;
 
                 if (IgnoreProxy)
                 {
                     w.Proxy = null;
-                    this.Proxy = null;
+                    Proxy = null;
                 }
 
                 return w;
             }
         }
-        
+
         private static readonly int DefaultBufferSize = 1024 * 64; // 64kb
         private readonly object locker = new object();
-        
+
         internal event EventHandler<DownloadFileProgress>? FileDownloadProgressChanged;
         internal event ProgressChangedEventHandler? DownloadProgressChangedEvent;
 
@@ -48,7 +45,7 @@ namespace CmlLib.Utils
             var webStream = response.GetResponseStream(); // Get NetworkStream
             if (webStream == null)
                 throw new NullReferenceException(nameof(webStream));
-            
+
             var fileStream = File.Open(path, FileMode.Create); // Open FileStream
 
             var bufferSize = DefaultBufferSize; // Make buffer
@@ -79,7 +76,7 @@ namespace CmlLib.Utils
             string? directoryName = Path.GetDirectoryName(file.Path);
             if (!string.IsNullOrEmpty(directoryName))
                 Directory.CreateDirectory(directoryName);
-            
+
             using (var wc = new TimeoutWebClient())
             {
                 long lastBytes = 0;
@@ -120,7 +117,7 @@ namespace CmlLib.Utils
             using var httpStream = res.GetResponseStream();
             if (httpStream == null)
                 return;
-            
+
             using var fs = File.OpenWrite(path);
             httpStream.CopyTo(fs);
         }

@@ -1,11 +1,6 @@
 ﻿using CmlLib.Core.Downloader;
 using CmlLib.Core.Version;
 using CmlLib.Utils;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CmlLib.Core.Files
 {
@@ -38,7 +33,7 @@ namespace CmlLib.Core.Files
         {
             if (version == null)
                 throw new ArgumentNullException(nameof(version));
-            
+
             return Task.Run(() => checkLibraries(path, version.Libraries, progress));
         }
 
@@ -47,7 +42,7 @@ namespace CmlLib.Core.Files
         {
             return checkLibraries(path, libs, progress);
         }
-        
+
         [MethodTimer.Time]
         private DownloadFile[]? checkLibraries(MinecraftPath path, MLibrary[]? libs,
             IProgress<DownloadFileChangedEventArgs>? progress)
@@ -57,13 +52,13 @@ namespace CmlLib.Core.Files
 
             if (libs.Length == 0)
                 return null;
-            
+
             int progressed = 0;
             var files = new List<DownloadFile>(libs.Length);
             foreach (MLibrary library in libs)
             {
                 bool downloadRequire = checkDownloadRequire(path, library);
-                
+
                 if (downloadRequire)
                 {
                     string libPath = Path.Combine(path.Library, library.Path!); // cannot be null

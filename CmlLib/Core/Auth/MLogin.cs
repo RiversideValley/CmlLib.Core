@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.IO;
 using System.Net;
 using System.Text;
 
@@ -86,7 +84,7 @@ namespace CmlLib.Core.Auth
             HttpWebRequest http = WebRequest.CreateHttp(MojangServer.Auth + endpoint);
             http.ContentType = "application/json";
             http.Method = "POST";
-            
+
             using StreamWriter req = new StreamWriter(http.GetRequestStream());
             req.Write(postdata);
             req.Flush();
@@ -178,9 +176,9 @@ namespace CmlLib.Core.Auth
             var stream = resHeader.GetResponseStream();
             if (stream == null)
                 return new MLoginResponse(
-                    MLoginResult.UnknownError, 
-                    null, 
-                    "null response stream", 
+                    MLoginResult.UnknownError,
+                    null,
+                    "null response stream",
                     null);
 
             using StreamReader res = new StreamReader(stream);
@@ -219,7 +217,7 @@ namespace CmlLib.Core.Auth
 
             if (activeAccount == null)
                 return new MLoginResponse(MLoginResult.NeedLogin, null, null, null);
-            
+
             return TryAutoLogin(activeAccount.ToSession());
         }
 
@@ -230,7 +228,7 @@ namespace CmlLib.Core.Auth
 
             if (activeAccount == null)
                 return new MLoginResponse(MLoginResult.NeedLogin, null, null, null);
-            
+
             return TryAutoLogin(activeAccount.ToSession());
         }
 
@@ -262,7 +260,7 @@ namespace CmlLib.Core.Auth
                     null,
                     "null response stream",
                     null);
-                
+
             using StreamReader res = new StreamReader(stream);
             string rawResponse = res.ReadToEnd();
 

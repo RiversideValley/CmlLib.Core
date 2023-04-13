@@ -6,8 +6,8 @@ namespace CmlLib.Core.Downloader
     {
         public FileProgressChangedEventArgs(long total, long received, int percent) : base(percent, null)
         {
-            this.TotalBytes = total;
-            this.ReceivedBytes = received;
+            TotalBytes = total;
+            ReceivedBytes = received;
         }
 
         public long TotalBytes { get; private set; }

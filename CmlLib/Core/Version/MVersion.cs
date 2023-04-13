@@ -1,6 +1,4 @@
-﻿using CmlLib.Core.Downloader;
-using CmlLib.Core.Files;
-using System.Linq;
+﻿using CmlLib.Core.Files;
 
 namespace CmlLib.Core.Version
 {
@@ -8,9 +6,9 @@ namespace CmlLib.Core.Version
     {
         public MVersion(string id)
         {
-            this.Id = id;
+            Id = id;
         }
-        
+
         public bool IsInherited { get; set; }
         public string? ParentVersionId { get; set; }
 
@@ -82,7 +80,7 @@ namespace CmlLib.Core.Version
             {
                 if (Libraries != null)
                     Libraries = Libraries.Concat(parentVersion.Libraries).ToArray();
-                    //Libraries = parentVersion.Libraries.Concat(Libraries).ToArray();
+                //Libraries = parentVersion.Libraries.Concat(Libraries).ToArray();
                 else
                     Libraries = parentVersion.Libraries;
             }
@@ -113,7 +111,7 @@ namespace CmlLib.Core.Version
 
         public override string ToString()
         {
-            return this.Id;
+            return Id;
         }
     }
 }

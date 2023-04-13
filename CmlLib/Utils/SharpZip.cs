@@ -1,6 +1,4 @@
 ﻿using ICSharpCode.SharpZipLib.Zip;
-using System;
-using System.IO;
 
 namespace CmlLib.Utils
 {
@@ -8,7 +6,7 @@ namespace CmlLib.Utils
     {
         public SharpZip(string path)
         {
-            this.ZipPath = path;
+            ZipPath = path;
         }
 
         public event EventHandler<int>? ProgressEvent;

@@ -4,14 +4,14 @@
     {
         public ModFile(string filename, string url)
         {
-            this.Name = filename;
-            this.Path = System.IO.Path.Combine("mods", filename);
-            this.Url = url;
+            Name = filename;
+            Path = System.IO.Path.Combine("mods", filename);
+            Url = url;
         }
 
         public ModFile(string filename, string url, string hash) : this(filename, url)
         {
-            this.Hash = hash;
+            Hash = hash;
         }
 
         public string? Name { get; set; }

@@ -1,8 +1,6 @@
 ﻿using CmlLib.Core.Downloader;
 using CmlLib.Core.Version;
 using CmlLib.Utils;
-using System;
-using System.Threading.Tasks;
 
 namespace CmlLib.Core.Files
 {

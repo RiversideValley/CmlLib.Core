@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace CmlLib.Core
+﻿namespace CmlLib.Core
 {
     public class PackageName
     {

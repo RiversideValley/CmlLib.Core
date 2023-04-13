@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace CmlLib.Utils
 {
@@ -13,7 +11,7 @@ namespace CmlLib.Utils
 
         public ProcessUtil(Process process)
         {
-            this.Process = process;
+            Process = process;
         }
 
         public void StartWithEvents()

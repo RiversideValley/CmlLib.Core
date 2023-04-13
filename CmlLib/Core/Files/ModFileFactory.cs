@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace CmlLib.Core.Files
+﻿namespace CmlLib.Core.Files
 {
     public class ModFileFactory
     {
@@ -8,7 +6,7 @@ namespace CmlLib.Core.Files
         {
             string path = Path.Combine("mods", modName + ".jar");
             string url = $"https://www.curseforge.com/minecraft/mc-mods/{modName}/download/{fileId}/file";
-            
+
             return new ModFile(path, url)
             {
                 Name = modName

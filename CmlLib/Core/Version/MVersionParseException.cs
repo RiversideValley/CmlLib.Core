@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CmlLib.Core.Version
+﻿namespace CmlLib.Core.Version
 {
     public class MVersionParseException : Exception
     {

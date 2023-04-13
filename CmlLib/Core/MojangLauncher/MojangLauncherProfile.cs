@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.IO;
+﻿using CmlLib.Core.Auth;
 using Newtonsoft.Json.Linq;
-using CmlLib.Core.Auth;
 
 namespace CmlLib.Core.MojangLauncher
 {

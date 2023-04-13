@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CmlLib.Core.VersionMetadata;
+﻿using CmlLib.Core.VersionMetadata;
 
 namespace CmlLib.Core.Version
 {
@@ -17,15 +14,15 @@ namespace CmlLib.Core.Version
         AsLatest,
         AsOldest
     }
-    
+
     public class MVersionSortOption
     {
-        public MVersionType[] TypeOrder { get; set; } = 
+        public MVersionType[] TypeOrder { get; set; } =
         {
-            MVersionType.Custom, 
-            MVersionType.Release, 
-            MVersionType.Snapshot, 
-            MVersionType.OldBeta, 
+            MVersionType.Custom,
+            MVersionType.Release,
+            MVersionType.Snapshot,
+            MVersionType.OldBeta,
             MVersionType.OldAlpha
         };
 
@@ -36,7 +33,7 @@ namespace CmlLib.Core.Version
 
         public MVersionNullReleaseDateSortOption NullReleaseDateSortOption { get; set; } =
             MVersionNullReleaseDateSortOption.AsOldest;
-        
+
         public bool CustomAsRelease { get; set; } = false;
         public bool TypeClassification { get; set; } = true;
     }
@@ -47,7 +44,7 @@ namespace CmlLib.Core.Version
         {
             this.option = option;
 
-            this.typePriority = new Dictionary<MVersionType, int>();
+            typePriority = new Dictionary<MVersionType, int>();
             for (int i = 0; i < option.TypeOrder.Length; i++)
             {
                 var type = option.TypeOrder[i];
@@ -63,7 +60,7 @@ namespace CmlLib.Core.Version
             }
 
             propertyOptions = propertyList.ToArray();
-            
+
             switch (option.NullReleaseDateSortOption)
             {
                 case MVersionNullReleaseDateSortOption.AsLatest:
@@ -92,10 +89,10 @@ namespace CmlLib.Core.Version
         {
             if (option.CustomAsRelease && type == MVersionType.Custom)
                 type = MVersionType.Release;
-            
+
             if (typePriority.TryGetValue(type, out int p))
                 return p;
-            
+
             return -1;
         }
 
@@ -125,7 +122,7 @@ namespace CmlLib.Core.Version
                 return 1;
             if (!v2r) // v1 < v2
                 return -1;
-            
+
             var result = v1v.CompareTo(v2v);
             if (!option.AscendingPropertyOrder)
                 result *= -1;
@@ -142,7 +139,7 @@ namespace CmlLib.Core.Version
             return result;
         }
 
-        private int compareProperty(MVersionMetadata v1, MVersionMetadata v2, 
+        private int compareProperty(MVersionMetadata v1, MVersionMetadata v2,
             MVersionSortPropertyOption propertyOption)
         {
             switch (propertyOption)
@@ -164,7 +161,7 @@ namespace CmlLib.Core.Version
 
             if (option.TypeClassification && typeCompareResult != 0)
                 return typeCompareResult;
-            
+
             foreach (var propOption in propertyOptions)
             {
                 int result = compareProperty(v1, v2, propOption);

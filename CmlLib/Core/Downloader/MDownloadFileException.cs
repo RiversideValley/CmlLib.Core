@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CmlLib.Core.Downloader
+﻿namespace CmlLib.Core.Downloader
 {
     public class MDownloadFileException : Exception
     {

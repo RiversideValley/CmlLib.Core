@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
 using System.Runtime.InteropServices;
 
 namespace CmlLib.Core
@@ -61,7 +60,7 @@ namespace CmlLib.Core
                 foreach (var item in job)
                 {
                     if (item.Key == "action")
-                        action = (item.Value?.ToString() == "allow");
+                        action = item.Value?.ToString() == "allow";
                     else if (item.Key == "os")
                         containCurrentOS = checkOSContains(item.Value as JObject);
                     else if (item.Key == "features") // etc
@@ -83,7 +82,7 @@ namespace CmlLib.Core
         {
             if (job == null)
                 return false;
-            
+
             foreach (var os in job)
             {
                 if (os.Key == "name" && os.Value?.ToString() == OSName)

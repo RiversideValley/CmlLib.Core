@@ -1,13 +1,10 @@
-﻿using System.IO;
-using System.Linq;
-
-namespace CmlLib.Core.Java
+﻿namespace CmlLib.Core.Java
 {
     public class MinecraftJavaPathResolver : IJavaPathResolver
     {
         public static readonly string JreLegacyVersionName = "jre-legacy";
         public static readonly string CmlLegacyVersionName = "m-legacy";
-        
+
         public MinecraftJavaPathResolver(MinecraftPath path)
         {
             runtimeDirectory = path.Runtime;
@@ -35,37 +32,37 @@ namespace CmlLib.Core.Java
         {
             var javaVersions = GetInstalledJavaVersions();
             string? javaPath = null;
-            
+
             if (string.IsNullOrEmpty(javaPath) &&
                 javaVersions.Contains(MinecraftJavaPathResolver.JreLegacyVersionName))
                 javaPath = GetJavaBinaryPath(MinecraftJavaPathResolver.JreLegacyVersionName, MRule.OSName);
-            
+
             if (string.IsNullOrEmpty(javaPath) &&
                 javaVersions.Contains(MinecraftJavaPathResolver.CmlLegacyVersionName))
                 javaPath = GetJavaBinaryPath(MinecraftJavaPathResolver.CmlLegacyVersionName, MRule.OSName);
 
-            if (string.IsNullOrEmpty(javaPath) && 
+            if (string.IsNullOrEmpty(javaPath) &&
                 javaVersions.Length > 0)
                 javaPath = GetJavaBinaryPath(javaVersions[0], MRule.OSName);
 
             return javaPath;
         }
-        
+
         public string GetJavaBinaryPath(string javaVersionName)
             => GetJavaBinaryPath(javaVersionName, MRule.OSName);
-        
+
         public string GetJavaBinaryPath(string javaVersionName, string osName)
         {
             return Path.Combine(
-                GetJavaDirPath(javaVersionName), 
-                "bin", 
+                GetJavaDirPath(javaVersionName),
+                "bin",
                 GetJavaBinaryName(osName));
         }
-        
-        public string GetJavaDirPath() 
+
+        public string GetJavaDirPath()
             => GetJavaDirPath(JreLegacyVersionName);
 
-        public string GetJavaDirPath(string javaVersionName) 
+        public string GetJavaDirPath(string javaVersionName)
             => Path.Combine(runtimeDirectory, javaVersionName);
 
         public string GetJavaBinaryName(string osName)

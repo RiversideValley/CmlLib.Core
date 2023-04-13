@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace CmlLib.Utils
@@ -44,7 +40,7 @@ namespace CmlLib.Utils
 
             return new GameOptionsFile(optionDict, filepath);
         }
-        
+
         public static KeyValuePair<string, string> FromKeyValueString(string keyvalue)
         {
             var spliter = ':';
@@ -62,18 +58,18 @@ namespace CmlLib.Utils
 
         public GameOptionsFile()
         {
-            this.options = new Dictionary<string, string?>();
+            options = new Dictionary<string, string?>();
         }
-        
+
         public GameOptionsFile(Dictionary<string, string?> options)
         {
             this.options = options;
         }
-        
+
         public GameOptionsFile(Dictionary<string, string?> options, string path)
         {
             this.options = options;
-            this.FilePath = path;
+            FilePath = path;
         }
 
         public bool ContainsKey(string key)
@@ -99,7 +95,7 @@ namespace CmlLib.Utils
             string? value = GetRawValue(key);
             if (value == null)
                 return null;
-            
+
             return value
                 .Trim()
                 .TrimStart('[')
@@ -114,7 +110,7 @@ namespace CmlLib.Utils
             string? value = GetRawValue(key);
             if (value == null)
                 return 0;
-            
+
             return int.Parse(value);
         }
 
@@ -123,7 +119,7 @@ namespace CmlLib.Utils
             string? value = GetRawValue(key);
             if (value == null)
                 return 0;
-            
+
             return double.Parse(value);
         }
 
@@ -132,7 +128,7 @@ namespace CmlLib.Utils
             string? value = GetRawValue(key);
             if (value == null)
                 return false;
-             
+
             return bool.Parse(value);
         }
 
@@ -179,7 +175,7 @@ namespace CmlLib.Utils
         {
             if (string.IsNullOrEmpty(FilePath))
                 throw new InvalidOperationException("FilePath was null");
-            
+
             Save(FilePath);
         }
 
@@ -193,7 +189,7 @@ namespace CmlLib.Utils
         {
             if (string.IsNullOrEmpty(FilePath))
                 throw new InvalidOperationException("FilePath was null");
-            
+
             Save(FilePath, encoding);
         }
 
@@ -222,7 +218,7 @@ namespace CmlLib.Utils
 
             return key + ":" + value;
         }
-        
+
         private static string handleEmpty(string value)
         {
             if (value.Contains(" "))

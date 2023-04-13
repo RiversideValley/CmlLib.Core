@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using CmlLib.Core.Version;
+﻿using CmlLib.Core.Version;
 using CmlLib.Core.VersionMetadata;
 using CmlLib.Utils;
 using Newtonsoft.Json.Linq;
@@ -11,17 +8,17 @@ namespace CmlLib.Core.Installer.LiteLoader
     public class LiteLoaderVersionMetadata : MVersionMetadata
     {
         private const string LiteLoaderDl = "http://dl.liteloader.com/versions/";
-        
+
         public LiteLoaderVersionMetadata(string id, string vanillaVersion, string? tweakClass, JArray? libs, string? llnName) : base(id)
         {
             IsLocalVersion = false;
-            
-            this.VanillaVersionName = vanillaVersion;
+
+            VanillaVersionName = vanillaVersion;
             this.tweakClass = tweakClass;
-            this.libraries = libs;
+            libraries = libs;
             this.llnName = llnName;
         }
-        
+
         public string VanillaVersionName { get; set; }
         private readonly string? tweakClass;
         private readonly JArray? libraries;
@@ -57,7 +54,7 @@ namespace CmlLib.Core.Installer.LiteLoader
                 inheritsFrom = baseVersionName,
                 jar = baseVersionName
             };
-            
+
             var job = JObject.FromObject(obj);
 
             // set arguments
@@ -70,14 +67,14 @@ namespace CmlLib.Core.Installer.LiteLoader
                     game = arrArgs
                 });
             }
-            
+
             return job;
         }
 
         private string prepareWriteMetadata(MinecraftPath path, string name)
         {
             var metadataPath = path.GetVersionJsonPath(name);
-            
+
             var directoryPath = System.IO.Path.GetDirectoryName(metadataPath);
             if (!string.IsNullOrEmpty(directoryPath))
                 Directory.CreateDirectory(directoryPath);
@@ -90,7 +87,7 @@ namespace CmlLib.Core.Installer.LiteLoader
             var metadataPath = prepareWriteMetadata(path, name);
             File.WriteAllText(metadataPath, json);
         }
-        
+
         private Task writeMetadataAsync(string json, MinecraftPath path, string name)
         {
             var metadataPath = prepareWriteMetadata(path, name);
@@ -100,7 +97,7 @@ namespace CmlLib.Core.Installer.LiteLoader
         public string Install(MinecraftPath path, MVersion baseVersion)
         {
             var versionName = LiteLoaderInstaller.GetVersionName(VanillaVersionName, baseVersion.Id);
-            
+
             if (!string.IsNullOrEmpty(baseVersion.MinecraftArguments))
             {
                 // com.mumfrey.liteloader.launch.LiteLoaderTweaker
@@ -110,7 +107,7 @@ namespace CmlLib.Core.Installer.LiteLoader
             }
             else if (baseVersion.GameArguments != null)
             {
-                var tweakArg = new []
+                var tweakArg = new[]
                 {
                     "--tweakClass",
                     tweakClass
@@ -123,7 +120,7 @@ namespace CmlLib.Core.Installer.LiteLoader
 
             return versionName;
         }
-        
+
         public override MVersion GetVersion()
         {
             var json = createVersion(Name, VanillaVersionName, null, null).ToString();

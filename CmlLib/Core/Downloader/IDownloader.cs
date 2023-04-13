@@ -1,13 +1,11 @@
-﻿using System;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace CmlLib.Core.Downloader
 {
     public interface IDownloader
     {
-        Task DownloadFiles(DownloadFile[] files, 
-            IProgress<DownloadFileChangedEventArgs>? fileProgress, 
+        Task DownloadFiles(DownloadFile[] files,
+            IProgress<DownloadFileChangedEventArgs>? fileProgress,
             IProgress<ProgressChangedEventArgs>? downloadProgress);
     }
 }

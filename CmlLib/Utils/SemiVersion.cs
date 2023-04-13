@@ -67,7 +67,7 @@
             }
 
             verSplit[verSplit.Length - 1] = last.Substring(0, versionEndPosition + 1);
-            
+
             if (versionEndPosition > last.Length - 1)
                 semiVer.Tag = last.Substring(versionEndPosition + 1);
 

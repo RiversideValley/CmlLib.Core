@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using CmlLib.Core.Version;
+﻿using CmlLib.Core.Version;
 using Newtonsoft.Json;
 
 namespace CmlLib.Core.VersionMetadata
@@ -9,7 +7,7 @@ namespace CmlLib.Core.VersionMetadata
     {
         protected MVersionMetadata(string id)
         {
-            this.Name = id;
+            Name = id;
         }
 
         public bool IsLocalVersion { get; set; }
@@ -26,12 +24,12 @@ namespace CmlLib.Core.VersionMetadata
         {
             get
             {
-                if (DateTime.TryParse(this.ReleaseTimeStr, out DateTime dt))
+                if (DateTime.TryParse(ReleaseTimeStr, out DateTime dt))
                     return dt;
                 return null;
             }
         }
-        
+
         [JsonProperty("url")] public string? Path { get; set; }
 
         public override bool Equals(object? obj)

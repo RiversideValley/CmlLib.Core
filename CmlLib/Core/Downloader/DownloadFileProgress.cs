@@ -4,11 +4,11 @@
     {
         public DownloadFileProgress(DownloadFile file, long total, long progressed, long received, int percent)
         {
-            this.File = file;
-            this.TotalBytes = total;
-            this.ProgressedBytes = progressed;
-            this.ReceivedBytes = received;
-            this.ProgressPercentage = percent;
+            File = file;
+            TotalBytes = total;
+            ProgressedBytes = progressed;
+            ReceivedBytes = received;
+            ProgressPercentage = percent;
         }
 
         public DownloadFile File { get; private set; }

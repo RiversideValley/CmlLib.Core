@@ -1,7 +1,5 @@
-﻿using System;
-using CmlLib.Core.Downloader;
+﻿using CmlLib.Core.Downloader;
 using CmlLib.Core.Version;
-using System.Threading.Tasks;
 
 namespace CmlLib.Core.Files
 {
@@ -9,7 +7,7 @@ namespace CmlLib.Core.Files
     {
         DownloadFile[]? CheckFiles(MinecraftPath path, MVersion version,
             IProgress<DownloadFileChangedEventArgs>? downloadProgress);
-        Task<DownloadFile[]?> CheckFilesTaskAsync(MinecraftPath path, MVersion version, 
+        Task<DownloadFile[]?> CheckFilesTaskAsync(MinecraftPath path, MVersion version,
             IProgress<DownloadFileChangedEventArgs>? downloadProgress);
     }
 }

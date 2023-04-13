@@ -1,11 +1,8 @@
-﻿using CmlLib.Utils;
+﻿using CmlLib.Core.Java;
+using CmlLib.Utils;
 using Newtonsoft.Json.Linq;
-using System;
 using System.ComponentModel;
-using System.IO;
 using System.Net;
-using System.Threading.Tasks;
-using CmlLib.Core.Java;
 
 namespace CmlLib.Core.Installer
 {
@@ -63,7 +60,7 @@ namespace CmlLib.Core.Installer
 
         public Task<string> CheckJavaAsync()
             => CheckJavaAsync(null);
-        
+
         public async Task<string> CheckJavaAsync(IProgress<ProgressChangedEventArgs>? progress)
         {
             string javapath = GetBinaryPath();
@@ -79,7 +76,7 @@ namespace CmlLib.Core.Installer
                 {
                     pProgressChanged = progress;
                 }
-                
+
                 string javaUrl = await GetJavaUrlAsync().ConfigureAwait(false);
                 string lzmaPath = await downloadJavaLzmaAsync(javaUrl).ConfigureAwait(false);
 
@@ -172,7 +169,7 @@ namespace CmlLib.Core.Installer
         }
 
         private void Downloader_DownloadProgressChangedEvent(object? sender, ProgressChangedEventArgs e)
-        { 
+        {
             pProgressChanged?.Report(new ProgressChangedEventArgs(e.ProgressPercentage / 2, null));
         }
     }

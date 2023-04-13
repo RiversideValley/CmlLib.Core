@@ -1,10 +1,6 @@
 ﻿using CmlLib.Utils;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CmlLib.Core.Downloader
 {
@@ -36,13 +32,13 @@ namespace CmlLib.Core.Downloader
             MaxThread = parallelism;
         }
 
-        public async Task DownloadFiles(DownloadFile[] files, 
+        public async Task DownloadFiles(DownloadFile[] files,
             IProgress<DownloadFileChangedEventArgs>? fileProgress,
             IProgress<ProgressChangedEventArgs>? downloadProgress)
         {
             if (files.Length == 0)
                 return;
-            
+
             if (isRunning)
                 throw new InvalidOperationException("already downloading");
 
@@ -50,7 +46,7 @@ namespace CmlLib.Core.Downloader
 
             pChangeFile = fileProgress;
             pChangeProgress = downloadProgress;
-            
+
             totalFiles = files.Length;
             progressedFiles = 0;
 
@@ -66,7 +62,7 @@ namespace CmlLib.Core.Downloader
             fileProgress?.Report(
                 new DownloadFileChangedEventArgs(files[0].Type, this, null, files.Length, 0));
             await ForEachAsyncSemaphore(files, MaxThread, doDownload).ConfigureAwait(false);
-            
+
             isRunning = false;
         }
 
@@ -90,7 +86,7 @@ namespace CmlLib.Core.Downloader
                         throttler.Release();
                     }
                 }
-                
+
                 tasks.Add(work(element));
             }
             await Task.WhenAll(tasks).ConfigureAwait(false);

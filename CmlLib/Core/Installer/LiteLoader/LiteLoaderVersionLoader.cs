@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
-using CmlLib.Core.Version;
+﻿using CmlLib.Core.Version;
 using CmlLib.Core.VersionLoader;
 using CmlLib.Core.VersionMetadata;
 using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace CmlLib.Core.Installer.LiteLoader
 {
@@ -12,7 +10,7 @@ namespace CmlLib.Core.Installer.LiteLoader
     {
         private const string LiteLoaderLibName = "com.mumfrey:liteloader";
         private const string ManifestServer = "http://dl.liteloader.com/versions/versions.json";
-        
+
         public async Task<MVersionCollection> GetVersionMetadatasAsync()
         {
             using var wc = new WebClient();
@@ -34,7 +32,7 @@ namespace CmlLib.Core.Installer.LiteLoader
         {
             var job = JObject.Parse(json);
             var versions = job["versions"] as JObject;
-            
+
             List<MVersionMetadata> metadataList = new List<MVersionMetadata>();
             if (versions != null)
             {

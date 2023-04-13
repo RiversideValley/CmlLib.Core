@@ -2,13 +2,8 @@
 using CmlLib.Core.Version;
 using CmlLib.Utils;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace CmlLib.Core.Files
 {
@@ -28,13 +23,13 @@ namespace CmlLib.Core.Files
         }
         public bool CheckHash { get; set; } = true;
 
-        public DownloadFile[]? CheckFiles(MinecraftPath path, MVersion version, 
+        public DownloadFile[]? CheckFiles(MinecraftPath path, MVersion version,
             IProgress<DownloadFileChangedEventArgs>? progress)
         {
             return checkIndexAndAsset(path, version, progress);
         }
 
-        public Task<DownloadFile[]?> CheckFilesTaskAsync(MinecraftPath path, MVersion version, 
+        public Task<DownloadFile[]?> CheckFilesTaskAsync(MinecraftPath path, MVersion version,
             IProgress<DownloadFileChangedEventArgs>? progress)
         {
             return Task.Run(() => checkIndexAndAsset(path, version, progress));
@@ -73,7 +68,7 @@ namespace CmlLib.Core.Files
         {
             if (string.IsNullOrEmpty(version.AssetId))
                 return null;
-            
+
             string indexPath = path.GetIndexFilePath(version.AssetId);
             if (!File.Exists(indexPath)) return null;
 
@@ -114,7 +109,7 @@ namespace CmlLib.Core.Files
                 }
 
                 progressed++;
-                
+
                 if (progressed % 50 == 0) // prevent ui freezing
                     progress?.Report(
                         new DownloadFileChangedEventArgs(MFile.Resource, this, "", total, progressed));
@@ -123,12 +118,12 @@ namespace CmlLib.Core.Files
             return downloadRequiredFiles.Distinct().ToArray(); // 10ms
         }
 
-        private DownloadFile? checkAssetFile(string key, JToken job, MinecraftPath path, MVersion version, 
+        private DownloadFile? checkAssetFile(string key, JToken job, MinecraftPath path, MVersion version,
             bool isVirtual, bool mapResource)
         {
             if (string.IsNullOrEmpty(version.AssetId))
                 return null;
-            
+
             // download hash resource
             string? hash = job["hash"]?.ToString();
             if (hash == null)

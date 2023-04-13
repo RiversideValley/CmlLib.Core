@@ -1,8 +1,6 @@
-﻿using System;
-using CmlLib.Core.Downloader;
+﻿using CmlLib.Core.Downloader;
 using CmlLib.Core.Version;
 using CmlLib.Utils;
-using System.Threading.Tasks;
 
 namespace CmlLib.Core.Files
 {
@@ -20,7 +18,7 @@ namespace CmlLib.Core.Files
             if (result == null)
                 return null;
             else
-                return new [] { result };
+                return new[] { result };
         }
 
         public async Task<DownloadFile[]?> CheckFilesTaskAsync(MinecraftPath path, MVersion version,
@@ -34,12 +32,12 @@ namespace CmlLib.Core.Files
             if (result == null)
                 return null;
             else
-                return new [] { result };
+                return new[] { result };
         }
 
         private DownloadFile? checkClientFile(MinecraftPath path, MVersion version)
         {
-            if (string.IsNullOrEmpty(version.ClientDownloadUrl) 
+            if (string.IsNullOrEmpty(version.ClientDownloadUrl)
                 || string.IsNullOrEmpty(version.Jar))
                 return null;
 

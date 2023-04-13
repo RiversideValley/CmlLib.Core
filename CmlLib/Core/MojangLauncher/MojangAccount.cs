@@ -1,8 +1,6 @@
 ﻿using CmlLib.Core.Auth;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 
 namespace CmlLib.Core.MojangLauncher
 {
@@ -57,9 +55,9 @@ namespace CmlLib.Core.MojangLauncher
         {
             return new MSession
             {
-                Username = this.MinecraftProfileName,
-                UUID = this.MinecraftProfileId,
-                AccessToken = this.AccessToken
+                Username = MinecraftProfileName,
+                UUID = MinecraftProfileId,
+                AccessToken = AccessToken
             };
         }
     }

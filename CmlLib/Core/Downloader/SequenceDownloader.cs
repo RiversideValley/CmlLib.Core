@@ -1,8 +1,5 @@
 ﻿using CmlLib.Utils;
-using System;
 using System.ComponentModel;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace CmlLib.Core.Downloader
 {
@@ -11,7 +8,7 @@ namespace CmlLib.Core.Downloader
         public bool IgnoreInvalidFiles { get; set; } = true;
         private IProgress<ProgressChangedEventArgs>? pChangeProgress;
 
-        public async Task DownloadFiles(DownloadFile[] files, 
+        public async Task DownloadFiles(DownloadFile[] files,
             IProgress<DownloadFileChangedEventArgs>? fileProgress,
             IProgress<ProgressChangedEventArgs>? downloadProgress)
         {
@@ -35,7 +32,7 @@ namespace CmlLib.Core.Downloader
                     var directoryPath = Path.GetDirectoryName(file.Path);
                     if (!string.IsNullOrEmpty(directoryPath))
                         Directory.CreateDirectory(directoryPath);
-                    
+
                     await downloader.DownloadFileAsync(file).ConfigureAwait(false);
 
                     if (file.AfterDownload != null)
@@ -45,7 +42,7 @@ namespace CmlLib.Core.Downloader
                             await item().ConfigureAwait(false);
                         }
                     }
-                    
+
                     fileProgress?.Report(
                         new DownloadFileChangedEventArgs(file.Type, this, file.Name, files.Length, i));
                 }

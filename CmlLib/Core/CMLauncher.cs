@@ -1,15 +1,11 @@
 using CmlLib.Core.Downloader;
 using CmlLib.Core.Files;
 using CmlLib.Core.Installer;
+using CmlLib.Core.Java;
 using CmlLib.Core.Version;
 using CmlLib.Core.VersionLoader;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
-using CmlLib.Core.Java;
 
 namespace CmlLib.Core
 {
@@ -21,7 +17,7 @@ namespace CmlLib.Core
 
         public CMLauncher(MinecraftPath mc)
         {
-            this.MinecraftPath = mc;
+            MinecraftPath = mc;
 
             GameFileCheckers = new FileCheckerCollection();
             FileDownloader = new AsyncParallelDownloader();
@@ -38,17 +34,17 @@ namespace CmlLib.Core
         public event DownloadFileChangedHandler? FileChanged;
         public event ProgressChangedEventHandler? ProgressChanged;
         public event EventHandler<string>? LogOutput;
-        
+
         private readonly IProgress<DownloadFileChangedEventArgs> pFileChanged;
         private readonly IProgress<ProgressChangedEventArgs> pProgressChanged;
 
         public MinecraftPath MinecraftPath { get; private set; }
         public MVersionCollection? Versions { get; private set; }
         public IVersionLoader VersionLoader { get; set; }
-        
+
         public FileCheckerCollection GameFileCheckers { get; private set; }
         public IDownloader? FileDownloader { get; set; }
-        
+
         public IJavaPathResolver JavaPathResolver { get; set; }
 
         public MVersionCollection GetAllVersions()
@@ -81,7 +77,7 @@ namespace CmlLib.Core
                 .ConfigureAwait(false);
             return version;
         }
-        
+
         public string CheckForge(string mcversion, string forgeversion, string java)
         {
             if (Versions == null)
@@ -124,7 +120,7 @@ namespace CmlLib.Core
         public DownloadFile[] CheckLostGameFiles(MVersion version)
         {
             var lostFiles = new List<DownloadFile>();
-            foreach (IFileChecker checker in this.GameFileCheckers)
+            foreach (IFileChecker checker in GameFileCheckers)
             {
                 DownloadFile[]? files = checker.CheckFiles(MinecraftPath, version, pFileChanged);
                 if (files != null)
@@ -137,7 +133,7 @@ namespace CmlLib.Core
         public async Task<DownloadFile[]> CheckLostGameFilesTaskAsync(MVersion version)
         {
             var lostFiles = new List<DownloadFile>();
-            foreach (IFileChecker checker in this.GameFileCheckers)
+            foreach (IFileChecker checker in GameFileCheckers)
             {
                 DownloadFile[]? files = await checker.CheckFilesTaskAsync(MinecraftPath, version, pFileChanged)
                     .ConfigureAwait(false);
@@ -150,7 +146,7 @@ namespace CmlLib.Core
 
         public async Task DownloadGameFiles(DownloadFile[] files)
         {
-            if (this.FileDownloader == null)
+            if (FileDownloader == null)
                 return;
 
             await FileDownloader.DownloadFiles(files, pFileChanged, pProgressChanged)
@@ -159,7 +155,7 @@ namespace CmlLib.Core
 
         public void CheckAndDownload(MVersion version)
         {
-            foreach (var checker in this.GameFileCheckers)
+            foreach (var checker in GameFileCheckers)
             {
                 DownloadFile[]? files = checker.CheckFiles(MinecraftPath, version, pFileChanged);
 
@@ -172,7 +168,7 @@ namespace CmlLib.Core
 
         public async Task CheckAndDownloadAsync(MVersion version)
         {
-            foreach (var checker in this.GameFileCheckers)
+            foreach (var checker in GameFileCheckers)
             {
                 DownloadFile[]? files = await checker.CheckFilesTaskAsync(MinecraftPath, version, pFileChanged)
                     .ConfigureAwait(false);
@@ -195,46 +191,46 @@ namespace CmlLib.Core
 
             return CreateProcess(versionName, option);
         }
-        
-        public Process CreateProcess(string versionName, MLaunchOption option, bool checkAndDownload=true)
+
+        public Process CreateProcess(string versionName, MLaunchOption option, bool checkAndDownload = true)
             => CreateProcess(GetVersion(versionName), option, checkAndDownload);
 
         [MethodTimer.Time]
-        public Process CreateProcess(MVersion version, MLaunchOption option, bool checkAndDownload=true)
+        public Process CreateProcess(MVersion version, MLaunchOption option, bool checkAndDownload = true)
         {
             option.StartVersion = version;
-            
+
             if (checkAndDownload)
                 CheckAndDownload(option.StartVersion);
-            
+
             return CreateProcess(option);
         }
 
-        public async Task<Process> CreateProcessAsync(string versionName, MLaunchOption option, 
-            bool checkAndDownload=true)
+        public async Task<Process> CreateProcessAsync(string versionName, MLaunchOption option,
+            bool checkAndDownload = true)
         {
             var version = await GetVersionAsync(versionName).ConfigureAwait(false);
             return await CreateProcessAsync(version, option, checkAndDownload).ConfigureAwait(false);
         }
 
-        public async Task<Process> CreateProcessAsync(MVersion version, MLaunchOption option, 
-            bool checkAndDownload=true)
+        public async Task<Process> CreateProcessAsync(MVersion version, MLaunchOption option,
+            bool checkAndDownload = true)
         {
             option.StartVersion = version;
-            
+
             if (checkAndDownload)
                 await CheckAndDownloadAsync(option.StartVersion).ConfigureAwait(false);
-            
+
             return await CreateProcessAsync(option).ConfigureAwait(false);
         }
-        
+
         public Process CreateProcess(MLaunchOption option)
         {
             checkLaunchOption(option);
             var launch = new MLaunch(option);
             return launch.GetProcess();
         }
-        
+
         public async Task<Process> CreateProcessAsync(MLaunchOption option)
         {
             checkLaunchOption(option);
@@ -268,7 +264,7 @@ namespace CmlLib.Core
                 else if (!string.IsNullOrEmpty(option.JavaVersion))
                     option.StartVersion.JavaVersion = option.JavaVersion;
                 else if (string.IsNullOrEmpty(option.StartVersion.JavaBinaryPath))
-                    option.StartVersion.JavaBinaryPath = 
+                    option.StartVersion.JavaBinaryPath =
                         GetJavaPath(option.StartVersion) ?? GetDefaultJavaPath();
             }
         }
@@ -277,7 +273,7 @@ namespace CmlLib.Core
         {
             if (string.IsNullOrEmpty(version.JavaVersion))
                 return null;
-            
+
             return JavaPathResolver.GetJavaBinaryPath(version.JavaVersion, MRule.OSName);
         }
 

@@ -1,10 +1,8 @@
 ﻿using CmlLib.Core.Version;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
 using CmlLib.Core.VersionLoader;
 using CmlLib.Core.VersionMetadata;
+using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace CmlLib.Core.Installer.QuiltMC
 {
@@ -38,7 +36,7 @@ namespace CmlLib.Core.Installer.QuiltMC
 
                 if (loaders.Length == 0 || string.IsNullOrEmpty(loaders[0].Version))
                     throw new KeyNotFoundException("can't find loaders");
-                
+
                 LoaderVersion = loaders[0].Version;
             }
 

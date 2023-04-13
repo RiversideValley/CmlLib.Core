@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
 
 namespace CmlLib.Core
@@ -51,7 +49,7 @@ namespace CmlLib.Core
 
         public static string Interpolation(string str, Dictionary<string, string?> dicts, bool handleEmpty)
         {
-            str = argBracket.Replace(str, (match =>
+            str = argBracket.Replace(str, match =>
             {
                 if (match.Groups.Count < 2)
                     return match.Value;
@@ -66,7 +64,7 @@ namespace CmlLib.Core
                 }
 
                 return match.Value;
-            }));
+            });
 
             if (handleEmpty)
                 return HandleEmptyArg(str);

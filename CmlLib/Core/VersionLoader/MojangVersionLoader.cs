@@ -1,9 +1,7 @@
 ﻿using CmlLib.Core.Version;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
 using CmlLib.Core.VersionMetadata;
+using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace CmlLib.Core.VersionLoader
 {
@@ -31,7 +29,7 @@ namespace CmlLib.Core.VersionLoader
 
             MVersionMetadata? latestRelease = null;
             MVersionMetadata? latestSnapshot = null;
-            
+
             var jobj = JObject.Parse(res);
             var jarr = jobj["versions"] as JArray;
 
@@ -53,7 +51,7 @@ namespace CmlLib.Core.VersionLoader
                     var obj = t.ToObject<WebVersionMetadata>();
                     if (obj == null)
                         continue;
-                    
+
                     obj.MType = MVersionTypeConverter.FromString(obj.Type);
                     arr.Add(obj);
 

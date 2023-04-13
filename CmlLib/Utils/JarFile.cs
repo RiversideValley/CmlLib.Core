@@ -1,6 +1,4 @@
 ﻿using ICSharpCode.SharpZipLib.Zip;
-using System.Collections.Generic;
-using System.IO;
 using System.Text;
 
 namespace CmlLib.Utils
@@ -9,7 +7,7 @@ namespace CmlLib.Utils
     {
         public JarFile(string path)
         {
-            this.Path = path;
+            Path = path;
         }
 
         public string Path { get; private set; }

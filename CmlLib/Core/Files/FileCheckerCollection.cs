@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 
 namespace CmlLib.Core.Files
 {
@@ -18,7 +16,7 @@ namespace CmlLib.Core.Files
             {
                 if (asset != null)
                     checkers.Remove(asset);
-                
+
                 asset = value;
 
                 if (asset != null)
@@ -34,7 +32,7 @@ namespace CmlLib.Core.Files
             {
                 if (client != null)
                     checkers.Remove(client);
-                
+
                 client = value;
 
                 if (client != null)
@@ -50,7 +48,7 @@ namespace CmlLib.Core.Files
             {
                 if (library != null)
                     checkers.Remove(library);
-                
+
                 library = value;
 
                 if (library != null)
@@ -69,7 +67,7 @@ namespace CmlLib.Core.Files
                     checkers.Remove(java);
 
                 java = value;
-                
+
                 if (java != null)
                     checkers.Add(java);
             }

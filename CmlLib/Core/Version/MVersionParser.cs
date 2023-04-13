@@ -1,8 +1,5 @@
 ﻿using CmlLib.Core.Files;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace CmlLib.Core.Version
 {
@@ -13,7 +10,7 @@ namespace CmlLib.Core.Version
             string json = File.ReadAllText(path);
             return ParseFromJson(json);
         }
-        
+
         public static MVersion ParseFromJson(string json)
         {
             try
@@ -29,7 +26,7 @@ namespace CmlLib.Core.Version
 
                 // javaVersion
                 version.JavaVersion = job["javaVersion"]?["component"]?.ToString();
-                
+
                 // assets
                 var assetindex = job["assetIndex"];
                 var assets = job["assets"];
@@ -57,7 +54,7 @@ namespace CmlLib.Core.Version
                     var libParser = new MLibraryParser();
                     foreach (var item in libJArr)
                     {
-                        var libs = libParser.ParseJsonObject((JObject) item);
+                        var libs = libParser.ParseJsonObject((JObject)item);
                         if (libs != null)
                             libList.AddRange(libs);
                     }

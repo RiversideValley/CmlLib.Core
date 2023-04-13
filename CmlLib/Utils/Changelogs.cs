@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace CmlLib.Utils
 {
@@ -15,7 +13,7 @@ namespace CmlLib.Utils
             { "1.14.3", "https://feedback.minecraft.net/hc/en-us/articles/360030771451-Minecraft-Java-Edition-1-14-3" },
             { "1.14.4", "https://feedback.minecraft.net/hc/en-us/articles/360030780172-Minecraft-Java-Edition-1-14-4" },
         };
-        
+
         public static async Task<Changelogs> GetChangelogs()
         {
             string response;
@@ -37,7 +35,7 @@ namespace CmlLib.Utils
                     var version = item["version"]?.ToString();
                     if (string.IsNullOrEmpty(version))
                         continue;
-                    
+
                     var body = item["body"]?.ToString();
                     versionDict[version] = body;
                 }
@@ -45,7 +43,7 @@ namespace CmlLib.Utils
 
             return new Changelogs(versionDict);
         }
-        
+
         private Changelogs(Dictionary<string, string?> versions)
         {
             this.versions = versions;
