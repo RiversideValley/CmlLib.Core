@@ -17,7 +17,7 @@ namespace CmlLib.Core.Downloader
 
             pChangeProgress = downloadProgress;
 
-            WebDownload downloader = new WebDownload();
+            WebDownload downloader = new();
             downloader.FileDownloadProgressChanged += Downloader_FileDownloadProgressChanged;
 
             fileProgress?.Report(

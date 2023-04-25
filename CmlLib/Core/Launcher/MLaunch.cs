@@ -34,7 +34,7 @@ namespace CmlLib.Core
         public Process GetProcess()
         {
             string arg = string.Join(" ", CreateArg());
-            Process mc = new Process();
+            Process mc = new();
             mc.StartInfo.FileName =
                 useNotNull(launchOption.GetStartVersion().JavaBinaryPath, launchOption.GetJavaPath()) ?? "";
             mc.StartInfo.Arguments = arg;

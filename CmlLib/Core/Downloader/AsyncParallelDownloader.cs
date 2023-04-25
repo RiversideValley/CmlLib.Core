@@ -15,7 +15,7 @@ namespace CmlLib.Core.Downloader
         private long totalBytes;
         private long receivedBytes;
 
-        private readonly object progressEventLock = new object();
+        private readonly object progressEventLock = new();
 
         private bool isRunning;
 
@@ -69,8 +69,8 @@ namespace CmlLib.Core.Downloader
         private async Task ForEachAsyncSemaphore<T>(IEnumerable<T> source,
     int degreeOfParallelism, Func<T, Task> body)
         {
-            List<Task> tasks = new List<Task>();
-            using SemaphoreSlim throttler = new SemaphoreSlim(degreeOfParallelism);
+            List<Task> tasks = new();
+            using SemaphoreSlim throttler = new(degreeOfParallelism);
             foreach (var element in source)
             {
                 await throttler.WaitAsync().ConfigureAwait(false);
@@ -109,7 +109,7 @@ namespace CmlLib.Core.Downloader
         {
             try
             {
-                WebDownload downloader = new WebDownload();
+                WebDownload downloader = new();
                 downloader.FileDownloadProgressChanged += Downloader_FileDownloadProgressChanged;
 
                 await downloader.DownloadFileAsync(file).ConfigureAwait(false);

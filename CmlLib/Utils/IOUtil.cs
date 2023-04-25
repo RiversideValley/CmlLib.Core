@@ -143,7 +143,7 @@ namespace CmlLib.Utils
         // we will have asynchronous file access faked by the thread pool. We want the real thing.
         public static FileStream AsyncReadStream(string path)
         {
-            FileStream stream = new FileStream(
+            FileStream stream = new(
                 path, FileMode.Open, FileAccess.Read, FileShare.Read, DefaultBufferSize,
                 FileOptions.Asynchronous | FileOptions.SequentialScan);
 
@@ -152,7 +152,7 @@ namespace CmlLib.Utils
 
         public static FileStream AsyncWriteStream(string path, bool append)
         {
-            FileStream stream = new FileStream(
+            FileStream stream = new(
                 path, append ? FileMode.Append : FileMode.Create, FileAccess.Write, FileShare.Read, DefaultBufferSize,
                 FileOptions.Asynchronous | FileOptions.SequentialScan);
 

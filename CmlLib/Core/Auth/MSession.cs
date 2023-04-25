@@ -6,7 +6,7 @@ namespace CmlLib.Core.Auth
     {
         public MSession() { }
 
-        public MSession(string? username, string? accessToken, string? uuid)
+        public MSession(string? username, string? accessToken, string? uuid,string? clientToken = null)
         {
             Username = username;
             AccessToken = accessToken;

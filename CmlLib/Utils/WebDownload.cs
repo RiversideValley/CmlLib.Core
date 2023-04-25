@@ -10,6 +10,7 @@ namespace CmlLib.Utils
 
         public static int DefaultWebRequestTimeout { get; set; } = 20 * 1000;
 
+#pragma warning disable SYSLIB0014 // Type or member is obsolete
         private class TimeoutWebClient : WebClient
         {
             protected override WebRequest? GetWebRequest(Uri uri)
@@ -31,7 +32,7 @@ namespace CmlLib.Utils
         }
 
         private static readonly int DefaultBufferSize = 1024 * 64; // 64kb
-        private readonly object locker = new object();
+        private readonly object locker = new();
 
         internal event EventHandler<DownloadFileProgress>? FileDownloadProgressChanged;
         internal event ProgressChangedEventHandler? DownloadProgressChangedEvent;

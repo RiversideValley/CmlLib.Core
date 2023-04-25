@@ -5,7 +5,7 @@ namespace CmlLib.Core
 {
     public static class Mapper
     {
-        private static readonly Regex argBracket = new Regex(@"\$?\{(.*?)}");
+        private static readonly Regex argBracket = new(@"\$?\{(.*?)}");
 
         public static string[] Map(string[] arg, Dictionary<string, string?> dicts, string prepath)
         {

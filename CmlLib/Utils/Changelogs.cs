@@ -7,7 +7,7 @@ namespace CmlLib.Utils
 {
     public class Changelogs
     {
-        private static readonly Dictionary<string, string> changelogUrls = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> changelogUrls = new()
         {
             { "1.14.2", "https://feedback.minecraft.net/hc/en-us/articles/360028919851-Minecraft-Java-Edition-1-14-2" },
             { "1.14.3", "https://feedback.minecraft.net/hc/en-us/articles/360030771451-Minecraft-Java-Edition-1-14-3" },
@@ -75,7 +75,7 @@ namespace CmlLib.Utils
             return null;
         }
 
-        private static readonly Regex articleRegex = new Regex(
+        private static readonly Regex articleRegex = new(
             "<article class=\\\"article\\\">(.*)<\\/article>", RegexOptions.Singleline);
 
         private async Task<string> GetChangelogFromUrl(string url)

@@ -4,9 +4,9 @@
     {
         public static void DecompressFileLZMA(string inFile, string outFile)
         {
-            SevenZip.Compression.LZMA.Decoder coder = new SevenZip.Compression.LZMA.Decoder();
-            FileStream input = new FileStream(inFile, FileMode.Open);
-            FileStream output = new FileStream(outFile, FileMode.Create);
+            SevenZip.Compression.LZMA.Decoder coder = new();
+            FileStream input = new(inFile, FileMode.Open);
+            FileStream output = new(outFile, FileMode.Create);
 
             // Read the decoder properties
             byte[] properties = new byte[5];

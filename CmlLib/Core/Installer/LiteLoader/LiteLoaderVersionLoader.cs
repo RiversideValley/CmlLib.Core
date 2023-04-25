@@ -33,7 +33,7 @@ namespace CmlLib.Core.Installer.LiteLoader
             var job = JObject.Parse(json);
             var versions = job["versions"] as JObject;
 
-            List<MVersionMetadata> metadataList = new List<MVersionMetadata>();
+            List<MVersionMetadata> metadataList = new();
             if (versions != null)
             {
                 foreach (var item in versions)

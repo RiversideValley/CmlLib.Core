@@ -45,7 +45,7 @@ namespace CmlLib.Core
             try
             {
                 string path = gamePath.GetNativePath(version.Id);
-                DirectoryInfo di = new DirectoryInfo(path);
+                DirectoryInfo di = new(path);
 
                 if (!di.Exists)
                     return;

@@ -85,7 +85,7 @@ namespace CmlLib.Core.Auth
             http.ContentType = "application/json";
             http.Method = "POST";
 
-            using StreamWriter req = new StreamWriter(http.GetRequestStream());
+            using StreamWriter req = new(http.GetRequestStream());
             req.Write(postdata);
             req.Flush();
 
@@ -158,7 +158,7 @@ namespace CmlLib.Core.Auth
 
         public MLoginResponse Authenticate(string id, string pw, string? clientToken)
         {
-            JObject req = new JObject
+            JObject req = new()
             {
                 { "username", id },
                 { "password", pw },
@@ -181,7 +181,7 @@ namespace CmlLib.Core.Auth
                     "null response stream",
                     null);
 
-            using StreamReader res = new StreamReader(stream);
+            using StreamReader res = new(stream);
             string rawResponse = res.ReadToEnd();
             if (resHeader.StatusCode == HttpStatusCode.OK) // ResultCode == 200
                 return parseSession(rawResponse, clientToken);
@@ -240,8 +240,8 @@ namespace CmlLib.Core.Auth
 
         public MLoginResponse Refresh(MSession session)
         {
-            JObject req = new JObject
-                {
+            JObject req = new()
+            {
                     { "accessToken", session.AccessToken },
                     { "clientToken", session.ClientToken },
                     { "selectedProfile", new JObject
@@ -261,7 +261,7 @@ namespace CmlLib.Core.Auth
                     "null response stream",
                     null);
 
-            using StreamReader res = new StreamReader(stream);
+            using StreamReader res = new(stream);
             string rawResponse = res.ReadToEnd();
 
             if ((int)resHeader.StatusCode / 100 == 2)
@@ -278,8 +278,8 @@ namespace CmlLib.Core.Auth
 
         public MLoginResponse Validate(MSession session)
         {
-            JObject req = new JObject
-                {
+            JObject req = new()
+            {
                     { "accessToken", session.AccessToken },
                     { "clientToken", session.ClientToken }
                 };
@@ -305,7 +305,7 @@ namespace CmlLib.Core.Auth
 
         public bool Invalidate(MSession session)
         {
-            JObject job = new JObject
+            JObject job = new()
             {
                 { "accessToken", session.AccessToken },
                 { "clientToken", session.ClientToken }
@@ -317,7 +317,7 @@ namespace CmlLib.Core.Auth
 
         public bool Signout(string id, string pw)
         {
-            JObject job = new JObject
+            JObject job = new()
             {
                 { "username", id },
                 { "password", pw }

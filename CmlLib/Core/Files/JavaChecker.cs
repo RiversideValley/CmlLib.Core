@@ -206,7 +206,7 @@ namespace CmlLib.Core.Files
             var javaPathResolver = new MinecraftJavaPathResolver(path);
             string legacyJavaPath = javaPathResolver.GetJavaDirPath(MinecraftJavaPathResolver.CmlLegacyVersionName);
 
-            MJava mJava = new MJava(legacyJavaPath);
+            MJava mJava = new(legacyJavaPath);
             binPath = mJava.GetBinaryPath();
 
             try
@@ -218,7 +218,7 @@ namespace CmlLib.Core.Files
                 string lzmaPath = Path.Combine(Path.GetTempPath(), "jre.lzma");
                 string zipPath = Path.Combine(Path.GetTempPath(), "jre.zip");
 
-                DownloadFile file = new DownloadFile(lzmaPath, javaUrl)
+                DownloadFile file = new(lzmaPath, javaUrl)
                 {
                     Name = "jre.lzma",
                     Type = MFile.Runtime,
