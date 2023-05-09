@@ -95,21 +95,17 @@ namespace CmlLib.Core.Installer
 
         public string GetJavaUrl()
         {
-            using (var wc = new WebClient())
-            {
-                string json = wc.DownloadString(MojangServer.LauncherMeta);
-                return parseLauncherMetadata(json);
-            }
+            using var wc = new WebClient();
+            string json = wc.DownloadString(MojangServer.LauncherMeta);
+            return parseLauncherMetadata(json);
         }
 
         public async Task<string> GetJavaUrlAsync()
         {
-            using (var wc = new WebClient())
-            {
-                string json = await wc.DownloadStringTaskAsync(MojangServer.LauncherMeta)
-                    .ConfigureAwait(false);
-                return parseLauncherMetadata(json);
-            }
+            using var wc = new WebClient();
+            string json = await wc.DownloadStringTaskAsync(MojangServer.LauncherMeta)
+                .ConfigureAwait(false);
+            return parseLauncherMetadata(json);
         }
 
         private string parseLauncherMetadata(string json)

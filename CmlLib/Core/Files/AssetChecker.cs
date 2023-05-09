@@ -56,10 +56,8 @@ namespace CmlLib.Core.Files
                     if (!string.IsNullOrEmpty(directoryName))
                         Directory.CreateDirectory(directoryName);
 
-                    using (var wc = new WebClient())
-                    {
-                        wc.DownloadFile(version.AssetUrl, index);
-                    }
+                    using var wc = new WebClient();
+                    wc.DownloadFile(version.AssetUrl, index);
                 }
         }
 

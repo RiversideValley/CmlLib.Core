@@ -78,28 +78,26 @@ namespace CmlLib.Utils
             if (!string.IsNullOrEmpty(directoryName))
                 Directory.CreateDirectory(directoryName);
 
-            using (var wc = new TimeoutWebClient())
+            using var wc = new TimeoutWebClient();
+            long lastBytes = 0;
+
+            wc.DownloadProgressChanged += (s, e) =>
             {
-                long lastBytes = 0;
-
-                wc.DownloadProgressChanged += (s, e) =>
+                lock (locker)
                 {
-                    lock (locker)
-                    {
-                        var progressedBytes = e.BytesReceived - lastBytes;
-                        if (progressedBytes < 0)
-                            return;
+                    var progressedBytes = e.BytesReceived - lastBytes;
+                    if (progressedBytes < 0)
+                        return;
 
-                        lastBytes = e.BytesReceived;
+                    lastBytes = e.BytesReceived;
 
-                        var progress = new DownloadFileProgress(
-                            file, e.TotalBytesToReceive, progressedBytes, e.BytesReceived, e.ProgressPercentage);
-                        FileDownloadProgressChanged?.Invoke(this, progress);
-                    }
-                };
-                await wc.DownloadFileTaskAsync(file.Url, file.Path)
-                    .ConfigureAwait(false);
-            }
+                    var progress = new DownloadFileProgress(
+                        file, e.TotalBytesToReceive, progressedBytes, e.BytesReceived, e.ProgressPercentage);
+                    FileDownloadProgressChanged?.Invoke(this, progress);
+                }
+            };
+            await wc.DownloadFileTaskAsync(file.Url, file.Path)
+                .ConfigureAwait(false);
         }
 
         internal void DownloadFileLimit(string url, string path)

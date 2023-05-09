@@ -195,18 +195,16 @@ namespace CmlLib.Utils
 
         public void Save(string path, Encoding encoding)
         {
-            using (var fs = File.OpenWrite(path))
-            using (var writer = new StreamWriter(fs, encoding))
+            using var fs = File.OpenWrite(path);
+            using var writer = new StreamWriter(fs, encoding);
+            foreach (KeyValuePair<string, string?> keyvalue in options)
             {
-                foreach (KeyValuePair<string, string?> keyvalue in options)
+                if (keyvalue.Value == null)
+                    writer.WriteLine(keyvalue.Key);
+                else
                 {
-                    if (keyvalue.Value == null)
-                        writer.WriteLine(keyvalue.Key);
-                    else
-                    {
-                        var line = ToKeyValueString(keyvalue.Key, keyvalue.Value);
-                        writer.WriteLine(line);
-                    }
+                    var line = ToKeyValueString(keyvalue.Key, keyvalue.Value);
+                    writer.WriteLine(line);
                 }
             }
         }
