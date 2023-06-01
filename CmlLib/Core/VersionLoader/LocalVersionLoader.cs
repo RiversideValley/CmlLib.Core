@@ -38,10 +38,12 @@ namespace CmlLib.Core.VersionLoader
                 var filepath = Path.Combine(dir.FullName, dir.Name + ".json");
                 if (File.Exists(filepath))
                 {
-                    var info = new LocalVersionMetadata(dir.Name);
-                    info.Path = filepath;
-                    info.Type = "local";
-                    info.MType = MVersionType.Custom;
+                    var info = new LocalVersionMetadata(dir.Name)
+                    {
+                        Path = filepath,
+                        Type = "local",
+                        MType = MVersionType.Custom
+                    };
                     arr.Add(info);
                 }
             }

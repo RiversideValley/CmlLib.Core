@@ -68,8 +68,10 @@ namespace CmlLib.Core.Installer.LiteLoader
                     var versionName = $"LiteLoader{vanillaVersion}";
 
                     var metadata = new LiteLoaderVersionMetadata(
-                        versionName, vanillaVersion, tweakClass, libraries, llName);
-                    metadata.Type = type;
+                        versionName, vanillaVersion, tweakClass, libraries, llName)
+                    {
+                        Type = type
+                    };
 
                     metadataList.Add(metadata);
                 }

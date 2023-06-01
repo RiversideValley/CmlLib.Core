@@ -382,11 +382,13 @@ namespace CmlLib.Core.Installer
             if (args != null && args.Length > 0)
                 arg += " " + string.Join(" ", args);
 
-            var process = new Process();
-            process.StartInfo = new ProcessStartInfo()
+            var process = new Process
             {
-                FileName = JavaPath,
-                Arguments = arg,
+                StartInfo = new ProcessStartInfo()
+                {
+                    FileName = JavaPath,
+                    Arguments = arg,
+                }
             };
 
             var p = new ProcessUtil(process);

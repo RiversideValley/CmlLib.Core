@@ -22,10 +22,11 @@ namespace CmlLib.Core.Version
                 if (string.IsNullOrEmpty(id))
                     throw new MVersionParseException("Empty version id");
 
-                var version = new MVersion(id);
-
-                // javaVersion
-                version.JavaVersion = job["javaVersion"]?["component"]?.ToString();
+                var version = new MVersion(id)
+                {
+                    // javaVersion
+                    JavaVersion = job["javaVersion"]?["component"]?.ToString()
+                };
 
                 // assets
                 var assetindex = job["assetIndex"];

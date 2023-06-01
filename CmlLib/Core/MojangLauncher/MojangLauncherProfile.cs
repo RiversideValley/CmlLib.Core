@@ -22,9 +22,10 @@ namespace CmlLib.Core.MojangLauncher
         {
             var job = JObject.Parse(json);
 
-            var profile = new MojangLauncherProfile();
-
-            profile.LauncherVersion = job["launcherVersion"]?["profilesFormat"]?.ToString();
+            var profile = new MojangLauncherProfile
+            {
+                LauncherVersion = job["launcherVersion"]?["profilesFormat"]?.ToString()
+            };
 
             var clientToken = job["clientToken"]?.ToString();
             profile.ClientToken = clientToken;
@@ -37,9 +38,11 @@ namespace CmlLib.Core.MojangLauncher
                 {
                     var innerObj = item.Children().First();
 
-                    var session = new MSession();
-                    session.AccessToken = innerObj["accessToken"]?.ToString();
-                    session.ClientToken = clientToken;
+                    var session = new MSession
+                    {
+                        AccessToken = innerObj["accessToken"]?.ToString(),
+                        ClientToken = clientToken
+                    };
 
                     var profiles = innerObj["profiles"] as JObject;
                     var firstProfileProperty = profiles?.Properties().First();
